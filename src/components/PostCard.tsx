@@ -1,21 +1,47 @@
+import {
+  CalendarDays,
+  ChevronLeftIcon,
+  ExternalLink,
+  Github,
+  MessageCircle,
+} from 'lucide-react'
+import { Link } from './Link'
+
 export function PostCard() {
   return (
-    <article className="h-max-64 h-64 w-104 cursor-pointer rounded-lg border-2 border-transparent bg-base-post p-8 transition hover:border-base-label">
-      <header className="mb-5 flex justify-center ">
-        <h1 className="w-3/4 text-justify text-xl font-bold text-base-title">
+    <section className="-mt-20 flex w-[864px] gap-8 rounded-lg bg-base-profile p-8 pl-10 drop-shadow-md">
+      <div className="flex w-full flex-col">
+        <div className="mb-5 flex w-full justify-between">
+          <Link href="/">
+            <ChevronLeftIcon size="12" /> Voltar
+          </Link>
+
+          <Link href="/">
+            Ver no github
+            <ExternalLink size="12" />
+          </Link>
+        </div>
+
+        <h2 className="text-2xl font-bold text-base-title">
           JavaScript data types and data structures
-        </h1>
+        </h2>
 
-        <p className="mt-1 w-1/4 text-end text-sm text-base-span">Há 1 dia</p>
-      </header>
+        <div className="mt-2 flex gap-6">
+          <span className="flex items-center gap-2 text-base-subtitle">
+            <Github className="text-base-label" size="18" />
+            gustavoph
+          </span>
 
-      {/* max text lenght 224 caracters */}
-      <p className="text-justify text-base text-base-text">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-        provident autem vitae sunt cumque porro explicabo, quia veritatis. Sit,
-        nobis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta,
-        corrupti? elit.
-      </p>
-    </article>
+          <span className="flex items-center gap-2 text-base-subtitle">
+            <CalendarDays className="text-base-label" size="18" />
+            Há 1 dia
+          </span>
+
+          <span className="flex items-center gap-2 text-base-subtitle">
+            <MessageCircle className="text-base-label" size="18" />5 comentários
+          </span>
+        </div>
+      </div>
+    </section>
   )
 }
