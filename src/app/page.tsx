@@ -1,15 +1,22 @@
-import { Suspense } from 'react'
+'use client'
+
 import { Input } from '@/components/Input'
 import { PostList } from '@/components/PostList'
 import { UserCard } from '@/components/UserCard'
+import { Post } from '@/shared/dtos/post'
+import { useQuery } from '@tanstack/react-query'
+import { getPosts } from '@/shared/services/api/requests/post'
 
-export default async function Home() {
+export default function Home() {
+  const { data: posts } = useQuery<Post[]>({
+    queryKey: ['posts'],
+    queryFn: async () => getPosts().then((response) => response.data),
+    retry: false,
+  })
+
   return (
     <main className="m-auto mb-8 max-w-[864px]">
-      <Suspense fallback={<></>}>
-        {/* @ts-expect-error Server Component */}
-        <UserCard />
-      </Suspense>
+      <UserCard />
 
       <section className="mt-18">
         <div className="flex items-center justify-between pb-3">
@@ -20,7 +27,7 @@ export default async function Home() {
 
         <Input type="search" placeholder="Buscar conteúdo" />
 
-        <PostList />
+        <PostList posts={posts || []} />
       </section>
     </main>
   )

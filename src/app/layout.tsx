@@ -1,7 +1,11 @@
+'use client'
+
 import { PropsWithChildren } from 'react'
 import './globals.css'
 import { Nunito } from 'next/font/google'
 import Image from 'next/image'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '@/shared/services/api'
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -9,13 +13,12 @@ const nunito = Nunito({
   variable: '--font-nunito',
 })
 
-export const metadata = {
-  title: 'Github Blog',
-}
-
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="pt-BR">
+      <head>
+        <title>Github Blog</title>
+      </head>
       <body className={`${nunito.variable} bg-base-background font-sans`}>
         <header className="flex h-[296px] flex-col items-center bg-coverImg bg-cover bg-center pt-16">
           <Image
@@ -25,7 +28,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
             height={98}
           />
         </header>
-        {children}
+
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
       </body>
     </html>
   )
