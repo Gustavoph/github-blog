@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: 'var(--font-nunito)',
+        fira: 'var(--font-fira-code)',
       },
 
       colors: {

@@ -10,18 +10,17 @@ import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import './markdown.css'
 import { useQuery } from '@tanstack/react-query'
 import { RenderIf } from '@/components/RenderIf'
+import { Loader } from 'lucide-react'
 
 interface PostProps {
   params: { id: string }
 }
 
-export default async function Post({ params }: PostProps) {
+export default function Post({ params }: PostProps) {
   const { data: post, isLoading } = useQuery({
-    queryKey: ['post'],
+    queryKey: ['post', params.id],
     queryFn: async () =>
       getPost(Number(params.id)).then((response) => response.data),
-    enabled: !!params.id,
-    retry: false,
   })
 
   return (
@@ -30,27 +29,36 @@ export default async function Post({ params }: PostProps) {
         <PostCard post={post!} />
 
         <section className="px-8 py-10 text-base-text">
-          <ReactMarkdown
-            children={post!.body}
-            components={{
-              code({ node, inline, className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || '')
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    children={String(children).replace(/\n$/, '')}
-                    style={dracula as any}
-                    language={match[1]}
-                    PreTag="div"
-                    {...props}
-                  />
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                )
-              },
-            }}
-          />
+          {isLoading ? (
+            <Loader
+              className="flex w-full animate-spin items-center text-base-subtitle"
+              size="32"
+            />
+          ) : (
+            <RenderIf condition={!!post}>
+              <ReactMarkdown
+                children={post!.body}
+                components={{
+                  code({ node, inline, className, children, ...props }) {
+                    const match = /language-(\w+)/.exec(className || '')
+                    return !inline && match ? (
+                      <SyntaxHighlighter
+                        children={String(children).replace(/\n$/, '')}
+                        style={dracula as any}
+                        language={match[1]}
+                        PreTag="div"
+                        {...props}
+                      />
+                    ) : (
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    )
+                  },
+                }}
+              />
+            </RenderIf>
+          )}
         </section>
       </RenderIf>
     </main>

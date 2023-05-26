@@ -1,8 +1,8 @@
 import { Post } from '@/shared/dtos/post'
 import { api } from '../..'
 
-export function getPosts() {
-  return api.get('/repos/gustavoph/github-blog/issues')
+export function getPosts(query: string = '') {
+  return api.get(`/search/issues?q=${query}%20repo:gustavoph/github-blog`)
 }
 
 export function getPost(postId: number) {

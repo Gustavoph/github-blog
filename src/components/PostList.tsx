@@ -10,7 +10,7 @@ interface PostListProps {
 export function PostList({ posts }: PostListProps) {
   return (
     <div className="mt-12 grid grid-cols-2 gap-8">
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <Link href={`/post/${post.number}`} key={post.id}>
           <article className="h-max-64 h-64 w-104 cursor-pointer rounded-lg border-2 border-transparent bg-base-post p-8 transition hover:border-base-label">
             <header className="mb-5 flex justify-center ">

@@ -1,4 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
 h1, h2, h3, h4 {
   color: #3294F8;
   font-size: 24px;
+  margin-bottom: .5rem;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+pre {
+  background-color: #112131;
+  padding: 1rem;
+  border-radius: 2px;
+}
+
+pre div {
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+pre code {
+  font-size: 15px;
+  font-family: 'Fira Code', monospace !important;
+  line-height: 160% !important;
+}
+
+ul {
+  list-style: inherit;
+  padding-left: 1.5rem;
 }
